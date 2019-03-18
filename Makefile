@@ -9,9 +9,9 @@ test: TreeTest.o Tree.o
 %.o: %.cpp
 	clang++-5.0 -std=c++17 --compile $< -o $@
 
-#TreeTest.o: badkan.hpp Tree.hpp
+TreeTest.o: badkan.hpp Tree.hpp
 
-#TreeDemo.o: Tree.hpp
+TreeDemo.o: Tree.hpp
 
 clean:
 	rm -f *.o demo test
