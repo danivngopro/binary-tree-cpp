@@ -11,7 +11,6 @@ public:
 
 	void insert(int key);
 	bool contains(int key);
-	
 	void print();
 	int size();
 	int root();
@@ -28,7 +27,7 @@ private:
 	node *search(int key, node *leaf);
 	void print(node *leaf);
 	void remove(node* key_pointer);
-	node *FindMax(node *curr);
+	node *FindMin(node *curr);
 
 
 	node *Root;

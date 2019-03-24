@@ -10,7 +10,7 @@ struct node{
 	node *parent;
 };
 
-ariel::Tree::Tree(){
+ariel::Tree::Tree(){//constructor
 	Root = NULL;
 	Size = 0;
 }
@@ -19,7 +19,7 @@ ariel::Tree::~Tree(){
 	destroy_Tree();
 	Size = 0;
 }
-
+//private function that help to delet a tree with the root leaf
 void ariel::Tree::destroy_Tree(node *leaf){
 	if(leaf != NULL){
 		destroy_Tree(leaf->left);
@@ -27,9 +27,9 @@ void ariel::Tree::destroy_Tree(node *leaf){
 		delete leaf;
 	}
 }
-
+//private function to insert int into tree with the root leaf
 void ariel::Tree::insert(int key, node *leaf){
-
+	//needed to insert on the left side of leaf 
 	if(key < leaf->value){
 		if(leaf->left != NULL){
 			insert(key, leaf->left);
@@ -40,6 +40,7 @@ void ariel::Tree::insert(int key, node *leaf){
 			leaf->left->right = NULL;
 			leaf->left->parent = leaf;
 		}
+	//needed to insert on the right side of leaf 
 	}else if(key >= leaf->value){
 		if(leaf->right != NULL){
 			insert(key, leaf->right);
@@ -53,7 +54,7 @@ void ariel::Tree::insert(int key, node *leaf){
 	}
 
 }
-
+//insert int into the Root
 void ariel::Tree::insert(int key){
 		if (search(key)!=NULL)
 			throw runtime_error("error");
@@ -68,7 +69,7 @@ void ariel::Tree::insert(int key){
 			Root->parent = NULL;
 		}
 }
-
+//search int in the tree with the root leaf and return a pointer to it's node
 node *ariel::Tree::search(int key, node *leaf){
 	if(leaf != NULL){
 		if(key == leaf->value){
@@ -83,20 +84,20 @@ node *ariel::Tree::search(int key, node *leaf){
 		return NULL;
 	}
 }
-
+//search int in the Root and return a pointer to it's node
 node *ariel::Tree::search(int key){
 	return search(key, Root);
 }
-
+//private function that help to delet all the tree
 void ariel::Tree::destroy_Tree(){
 	destroy_Tree(Root);
 }
-
+//print all the tree by inorder scanning
 void ariel::Tree::print(){
 	print(Root);
 	cout << "\n";
 }
-
+//private function that print the tree with the root leaf by inorder scan
 void ariel::Tree::print(node *leaf){
 	if(leaf != NULL){
 		print(leaf->left);
@@ -110,14 +111,16 @@ int ariel::Tree::size(){
 }
 
 int ariel::Tree::root(){
+	if (Root==NULL) throw "error";
 	return Root->value;
 }
-
+//return true if "key" is in the tree
 bool ariel::Tree::contains(int key){
 	if (search(key) == NULL)
 		return false;
 	else return true;
 }
+//return the parent of "key" if exists otherwise throw exception
 int ariel::Tree::parent(int key){
 	node* key_pointer = search(key);
 	if (key_pointer == NULL) 
@@ -127,6 +130,7 @@ int ariel::Tree::parent(int key){
  	else return key_pointer->parent ->value;
 	
 }
+//return the left child of "key" if exists otherwise throw exception
 int ariel::Tree::left(int key){
 	node* key_pointer = search(key);
 	if (key_pointer == NULL) 
@@ -136,6 +140,7 @@ int ariel::Tree::left(int key){
 	else return key_pointer->left ->value;
 
 }
+//return the right child of "key" if exists otherwise throw exception
 int ariel::Tree::right(int key){
 	node* key_pointer = search(key);
 	if (key_pointer == NULL) 
@@ -145,7 +150,7 @@ int ariel::Tree::right(int key){
 	else return key_pointer->right ->value;
 
 }
-
+//remove number "key" by the rules of binary tree
 void ariel::Tree::remove(int key){
 	node* key_pointer = search(key);
 	
@@ -154,6 +159,7 @@ void ariel::Tree::remove(int key){
 	Size--;
 	remove(key_pointer);
 }
+//remove the node "key_pointer" by the rules of binary tree
 void ariel::Tree::remove(node* key_pointer){
 	// Case 1:  No child
 	if(key_pointer->left == NULL && key_pointer->right == NULL) 
@@ -201,16 +207,17 @@ void ariel::Tree::remove(node* key_pointer){
 	}
 	// case 3: 2 children
 	else { 
-		node *temp = FindMax(key_pointer->left);
+		node *temp = FindMin(key_pointer->right);
 		int temp_val = temp->value;
 		remove(temp);
 		key_pointer->value = temp_val;
 	}
 }
-node *ariel::Tree::FindMax(node *curr){
+//private function that find the max value in the tree with the root "curr"
+node *ariel::Tree::FindMin(node *curr){
 	if (curr==NULL) return NULL;
-	while (curr->right != NULL){
-		curr = 	curr->right;
+	while (curr->left != NULL){
+		curr = 	curr->left;
 	}
 	return curr;
 }

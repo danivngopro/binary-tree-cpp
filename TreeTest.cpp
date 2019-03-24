@@ -63,7 +63,7 @@ int main() {
   .CHECK_OK    (bigTree.insert(288))
   .CHECK_THROWS(bigTree.left(56))
   .CHECK_OK    (bigTree.remove(65))//remove the root
-  .CHECK_EQUAL (bigTree.root(),56)//check if the root is 56 as it should be
+  .CHECK_EQUAL (bigTree.root(),77)//check if the root is 56 as it should be
   .CHECK_OK    (bigTree.print())
   
   .CHECK_EQUAL (miniTree.size(),2)
@@ -78,6 +78,5 @@ int main() {
   .print();
   
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
-//cout<<bigTree.right(89)<<endl;
-}
 
+}
